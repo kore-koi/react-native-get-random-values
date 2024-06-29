@@ -1,14 +1,20 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-get-random-values';
+import 'react-native-get-random-values';
 
-const result = multiply(3, 7);
 
 export default function App() {
+  React.useEffect(() => {
+    const test = new Int32Array(32);
+
+    console.log(global.crypto.getRandomValues(test))
+
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>Result</Text>
     </View>
   );
 }

@@ -1,21 +1,35 @@
+#import <React/RCTBridge+Private.h>
+#import <React/RCTUtils.h>
+#import <jsi/jsi.h>
 #import "GetRandomValues.h"
+#import "GetRandomValuesHostObject.hpp"
 
 @implementation GetRandomValues
 RCT_EXPORT_MODULE()
 
-// Don't compile this code when we build for the old architecture.
-#ifdef RCT_NEW_ARCH_ENABLED
-- (NSNumber *)multiply:(double)a b:(double)b {
-    NSNumber *result = @(getrandomvalues::multiply(a, b));
-
-    return result;
-}
-
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
-    (const facebook::react::ObjCTurboModule::InitParams &)params
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(install)
 {
-    return std::make_shared<facebook::react::NativeGetRandomValuesSpecJSI>(params);
+  RCTBridge* bridge = [RCTBridge currentBridge];
+  RCTCxxBridge* cxxBridge = (RCTCxxBridge*)bridge;
+
+  if (cxxBridge == nil) {
+      return @false;
+  }
+
+  using namespace facebook;
+
+  auto jsiRuntime = (jsi::Runtime*) cxxBridge.runtime;
+  if (jsiRuntime == nil) {
+      return @false;
+  }
+  auto& runtime = *jsiRuntime;
+
+  auto instance = std::make_shared<GetRandomValuesHostObject>();
+  jsi::Object NativeGetRandomValues = jsi::Object::createFromHostObject(runtime, instance);
+
+  runtime.global().setProperty(runtime, "__NativeGetRandomValues", std::move(NativeGetRandomValues));
+
+  return @true;
 }
-#endif
 
 @end
