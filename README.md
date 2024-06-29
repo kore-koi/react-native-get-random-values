@@ -5,18 +5,19 @@ react native polyfill for crypto getRandomValues
 ## Installation
 
 ```sh
-npm install react-native-get-random-values
+npm install @kore-koi/react-native-get-random-values
 ```
 
 ## Usage
 
 
 ```js
-import { multiply } from 'react-native-get-random-values';
+import '@kore-koi/react-native-get-random-values';
 
 // ...
 
-const result = multiply(3, 7);
+const array = new Uint8Array(32);
+global.crypto.getRandomValues(array);
 ```
 
 ## Contributing

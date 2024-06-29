@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import 'react-native-get-random-values';
+import '@kore-koi/react-native-get-random-values';
 
 
 export default function App() {
