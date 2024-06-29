@@ -13,6 +13,7 @@
     "android",
     "ios",
     "cpp",
+    "libsodium-android",
     "Clibsodium.xcframework",
     "*.podspec",
     "!ios/build",
