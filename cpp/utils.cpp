@@ -21,12 +21,7 @@ TypedArray<TypedArrayKind::Uint8Array> utils::formatUInt8Array(jsi::Object &rawO
     size_t size = array.size(runtime);
     std::vector<uint8_t> toUpdate(size);
     
-    for (int i = 0; i < size; i++) {
-        auto buffer = utils::generateByteArray(size);
-        uint8_t value;
-        std::memcpy(&value, buffer.get(), sizeof(uint8_t));
-        toUpdate[i] = value;
-    }
+    randombytes_buf(toUpdate.data(), size);
     array.update(runtime, toUpdate);
     return array;
 }
@@ -37,12 +32,7 @@ TypedArray<TypedArrayKind::Int8Array> utils::formatInt8Array(jsi::Object &rawObj
     size_t size = array.size(runtime);
     std::vector<int8_t> toUpdate(size);
     
-    for (int i = 0; i < size; i++) {
-        auto buffer = utils::generateByteArray(size);
-        int8_t value;
-        std::memcpy(&value, buffer.get(), sizeof(int8_t));
-        toUpdate[i] = value;
-    }
+    randombytes_buf(toUpdate.data(), size);
     array.update(runtime, toUpdate);
     return array;
 }
@@ -55,7 +45,7 @@ TypedArray<TypedArrayKind::Int16Array> utils::formatInt16Array(jsi::Object &rawO
     std::vector<int16_t> toUpdate(size);
     
     for (int i = 0; i < size; i++) {
-        auto buffer = utils::generateByteArray(size);
+        auto buffer = utils::generateByteArray(2);
         int16_t value;
         std::memcpy(&value, buffer.get(), sizeof(int16_t));
         toUpdate[i] = value;
@@ -71,7 +61,7 @@ TypedArray<TypedArrayKind::Uint16Array> utils::formatUInt16Array(jsi::Object &ra
     std::vector<uint16_t> toUpdate(size);
     
     for (int i = 0; i < size; i++) {
-        auto buffer = utils::generateByteArray(size);
+        auto buffer = utils::generateByteArray(2);
         uint16_t value;
         std::memcpy(&value, buffer.get(), sizeof(uint16_t));
         toUpdate[i] = value;
@@ -88,7 +78,7 @@ TypedArray<TypedArrayKind::Int32Array> utils::formatInt32Array(jsi::Object &rawO
     std::vector<int32_t> toUpdate(size);
     
     for (int i = 0; i < size; i++) {
-        auto buffer = utils::generateByteArray(size);
+        auto buffer = utils::generateByteArray(4);
         int32_t value;
         std::memcpy(&value, buffer.get(), sizeof(int32_t));
         toUpdate[i] = value;
@@ -104,7 +94,7 @@ TypedArray<TypedArrayKind::Uint32Array> utils::formatUInt32Array(jsi::Object &ra
     std::vector<uint32_t> toUpdate(size);
     
     for (int i = 0; i < size; i++) {
-        auto buffer = utils::generateByteArray(size);
+        auto buffer = utils::generateByteArray(4);
         uint32_t value;
         std::memcpy(&value, buffer.get(), sizeof(uint32_t));
         toUpdate[i] = value;
@@ -121,12 +111,7 @@ TypedArray<TypedArrayKind::Uint8ClampedArray> utils::formatUInt8TypedArray(jsi::
     size_t size = array.size(runtime);
     std::vector<uint8_t> toUpdate(size);
     
-    for (int i = 0; i < size; i++) {
-        auto buffer = utils::generateByteArray(size);
-        uint8_t value;
-        std::memcpy(&value, buffer.get(), sizeof(uint8_t));
-        toUpdate[i] = value;
-    }
+    randombytes_buf(toUpdate.data(), size);
     array.update(runtime, toUpdate);
     return array;
 }
