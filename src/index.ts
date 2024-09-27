@@ -1,4 +1,4 @@
-import { NitroModules, type HybridObject } from 'react-native-nitro-modules';
+import { NitroModules, type HybridObject } from "react-native-nitro-modules"
 
 export type CompatibleArray =
   | Uint8Array // 1byte
@@ -9,9 +9,10 @@ export type CompatibleArray =
   | Uint32Array; // 4byte
 
 declare global {
+  // eslint-disable-next-line no-var
   var crypto: {
-    getRandomValues: <T extends CompatibleArray>(array: T) => T;
-  };
+    getRandomValues: <T extends CompatibleArray>(array: T) => T
+  }
 }
 
 export interface Sodium extends HybridObject {
@@ -25,25 +26,24 @@ class QuotaExceededError extends Error {}
 const getRandomValues = <T extends CompatibleArray>(array: T): T => {
   if (array.byteLength > 65536) {
     throw new QuotaExceededError(
-      'ArrayBuffer length exceeds maximum length of 65536 bytes.'
-    );
+      "ArrayBuffer length exceeds maximum length of 65536 bytes."
+    )
   }
 
-  const sodium = NitroModules.createHybridObject<Sodium>('Sodium');
+  const sodium = NitroModules.createHybridObject<Sodium>("Sodium")
 
-  sodium.getRandomValues(array.buffer);
+  sodium.getRandomValues(array.buffer)
 
-  return array;
-};
-
-if (typeof global.crypto !== 'object') {
-  // @ts-ignore
-  global.crypto = {};
+  return array
 }
 
-if (typeof global.crypto.getRandomValues === 'undefined') {
-  // @ts-ignore
-  global.crypto.getRandomValues = getRandomValues;
+if (typeof global.crypto !== "object") {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  global.crypto = {} as any
 }
 
-export { getRandomValues, TypeMismatchError, QuotaExceededError };
+if (typeof global.crypto.getRandomValues === "undefined") {
+  global.crypto.getRandomValues = getRandomValues
+}
+
+export { getRandomValues, TypeMismatchError, QuotaExceededError }
