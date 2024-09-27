@@ -1,100 +1,58 @@
-import com.android.Version
-
-def androidManifestPath = "src/main/AndroidManifest.xml"
-
 buildscript {
+  ext.kotlinVersion = '1.9.25'
+
   repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-    mavenCentral()
     google()
+    mavenCentral()
   }
 
   dependencies {
-    classpath("com.android.tools.build:gradle:7.2.2")
+    classpath "com.android.tools.build:gradle:8.2.2"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
   }
-}
-
-def resolveBuildType() {
-    Gradle gradle = getGradle()
-    String tskReqStr = gradle.getStartParameter().getTaskRequests()['args'].toString()
-
-    return tskReqStr.contains('Release') ? 'release' : 'debug'
-}
-
-def isNewArchitectureEnabled() {
-  // To opt-in for the New Architecture, you can either:
-  // - Set `newArchEnabled` to true inside the `gradle.properties` file
-  // - Invoke gradle with `-newArchEnabled=true`
-  // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
-  return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
-}
-
-if (isNewArchitectureEnabled()) {
-  apply plugin: 'com.facebook.react'
-}
-apply plugin: 'com.android.library'
-
-def safeExtGet(prop, fallback) {
-  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
 def reactNativeArchitectures() {
-  def value = project.getProperties().get("reactNativeArchitectures")
+  def value = rootProject.getProperties().get("reactNativeArchitectures")
   return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
 }
 
-repositories {
-  mavenCentral()
+def isNewArchitectureEnabled() {
+  return rootProject.hasProperty("newArchEnabled") && rootProject.getProperty("newArchEnabled") == "true"
+}
+
+apply plugin: "com.android.library"
+apply plugin: "org.jetbrains.kotlin.android"
+
+if (isNewArchitectureEnabled()) {
+  apply plugin: "com.facebook.react"
+}
+
+def getExtOrDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["Sodium_" + name]
+}
+
+def getExtOrIntegerDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["Sodium_" + name]).toInteger()
 }
 
 android {
-  compileSdkVersion safeExtGet("compileSdkVersion", 28)
-
-    namespace = "com.getrandomvalues"
-
-  buildFeatures {
-    buildConfig = true
-  }
-
-  sourceSets {
-    main {
-      manifest.srcFile androidManifestPath
-    }
-  }
-
-  // Used to override the NDK path/version on internal CI or by allowing
-  // users to customize the NDK path/version from their root project (e.g. for M1 support)
-  if (rootProject.hasProperty("ndkPath")) {
-    ndkPath rootProject.ext.ndkPath
-  }
-  if (rootProject.hasProperty("ndkVersion")) {
-    ndkVersion rootProject.ext.ndkVersion
-  }
-
-  buildFeatures {
-    prefab true
-  }
+  namespace "com.sodium"
+  ndkVersion getExtOrDefault("ndkVersion")
+  compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
 
   defaultConfig {
-    minSdkVersion safeExtGet('minSdkVersion', 16)
-    targetSdkVersion safeExtGet('targetSdkVersion', 28)
-    versionCode 1
-    versionName "1.0"
+    minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+    targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+
     externalNativeBuild {
       cmake {
-        cppFlags "-O2 -frtti -fexceptions -Wall -Wno-unused-variable -fstack-protector-all"
+        cppFlags "-O2 -frtti -fexceptions -Wall -fstack-protector-all"
         arguments "-DANDROID_STL=c++_shared"
         abiFilters (*reactNativeArchitectures())
       }
     }
-  }
-
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   externalNativeBuild {
@@ -103,41 +61,55 @@ android {
     }
   }
 
-  packagingOptions {
-    jniLibs {
-        excludes += [
-          '**/libc++_shared.so',
-          '**/libfbjni.so',
-          '**/libreactnativejni.so',
-          '**/libjsi.so',
-          '**/libreact_nativemodule_core.so',
-          '**/libturbomodulejsijni.so'
-        ]
-    }
-    resources {
-        excludes += ['**/MANIFEST.MF']
+  buildFeatures {
+    buildConfig true
+    prefab true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
     }
   }
 
+  lintOptions {
+    disable "GradleCompatible"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  sourceSets {
+    main {
+      if (isNewArchitectureEnabled()) {
+        java.srcDirs += [
+          // React Codegen files
+          "${project.buildDir}/generated/source/codegen/java"
+        ]
+      }
+    }
+  }
 }
+
+repositories {
+  mavenCentral()
+  google()
+}
+
 
 dependencies {
   //noinspection GradleDynamicVersion
-  implementation 'com.facebook.react:react-android:+'
-  implementation "com.facebook.react:hermes-android:"
+  implementation "com.facebook.react:react-native:+"
+
+  implementation project(":react-native-nitro-modules")
 }
 
-// Resolves "LOCAL_SRC_FILES points to a missing file, Check that libfb.so exists or that its path is correct".
-tasks.whenTaskAdded { task ->
-  if (task.name.contains("configureCMakeDebug")) {
-    rootProject.getTasksByName("packageReactNdkDebugLibs", true).forEach {
-      task.dependsOn(it)
-    }
-  }
-  // We want to add a dependency for both configureCMakeRelease and configureCMakeRelWithDebInfo
-  if (task.name.contains("configureCMakeRel")) {
-    rootProject.getTasksByName("packageReactNdkReleaseLibs", true).forEach {
-      task.dependsOn(it)
-    }
+if (isNewArchitectureEnabled()) {
+  react {
+    jsRootDir = file("../src/")
+    libraryName = "Sodium"
+    codegenJavaPackageName = "com.sodium"
   }
 }

@@ -1,9 +1,22 @@
-import createNativeGetRandomValues, {
-  arrayTypeEnum,
-  type CompatibleArray,
-} from './NativeGetRandomValues';
+import { NitroModules, type HybridObject } from 'react-native-nitro-modules';
 
-createNativeGetRandomValues();
+export type CompatibleArray =
+  | Uint8Array // 1byte
+  | Int8Array // 1byte
+  | Uint16Array // 2byte
+  | Int16Array // 2byte
+  | Int32Array // 4byte
+  | Uint32Array; // 4byte
+
+declare global {
+  var crypto: {
+    getRandomValues: <T extends CompatibleArray>(array: T) => T;
+  };
+}
+
+export interface Sodium extends HybridObject {
+  getRandomValues(buffer: ArrayBuffer): void;
+}
 
 // port correct types as the browser/node implementation https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues#exceptions
 class TypeMismatchError extends Error {}
@@ -15,17 +28,12 @@ const getRandomValues = <T extends CompatibleArray>(array: T): T => {
       'ArrayBuffer length exceeds maximum length of 65536 bytes.'
     );
   }
-  const arrayType = arrayTypeEnum[array.constructor.name];
-  if (arrayType === undefined) {
-    throw new TypeMismatchError('Unsupported array type');
-  }
 
-  const filledArray = global.__NativeGetRandomValues.getRandomValues<T>(
-    array,
-    arrayType
-  );
+  const sodium = NitroModules.createHybridObject<Sodium>('Sodium');
 
-  return filledArray;
+  sodium.getRandomValues(array.buffer);
+
+  return array;
 };
 
 if (typeof global.crypto !== 'object') {

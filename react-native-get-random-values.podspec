@@ -18,8 +18,7 @@ Pod::Spec.new do |s|
 
   s.vendored_framework = "Clibsodium.xcframework"
 
-  s.dependency "React-Core"
-  s.dependency "React"
-  s.dependency "React-callinvoker"
-  s.dependency "ReactCommon/turbomodule/core"
+  s.dependency "NitroModules"
+
+  install_modules_dependencies(s)
 end

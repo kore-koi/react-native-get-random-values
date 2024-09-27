@@ -1,0 +1,43 @@
+package com.sodium;
+
+import androidx.annotation.NonNull;
+import android.util.Log;
+import androidx.annotation.Nullable;
+
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.TurboReactPackage;
+
+import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.module.model.ReactModuleInfoProvider;
+
+
+
+import java.util.HashMap;
+
+public class SodiumPackage extends TurboReactPackage {
+  public static final String TAG = "RNSodium";
+
+  static {
+    try {
+      Log.i(TAG, "Loading C++ library...");
+      System.loadLibrary("RNSodium");
+      Log.i(TAG, "Successfully loaded C++ library!");
+    } catch (Throwable e) {
+      Log.e(TAG, "Failed to load C++ library! Is it properly installed and linked?", e);
+      throw e;
+    }
+  }
+
+  @Nullable
+  @Override
+  public NativeModule getModule(String name, ReactApplicationContext reactContext) {
+    return null;
+  }
+
+  @Override
+  public ReactModuleInfoProvider getReactModuleInfoProvider() {
+    return () -> {
+      return new HashMap<>();
+    };
+  }
+}

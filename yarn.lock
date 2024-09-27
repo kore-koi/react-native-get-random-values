@@ -2170,6 +2170,7 @@ __metadata:
     react: 18.2.0
     react-native: 0.74.2
     react-native-builder-bob: ^0.20.0
+    react-native-nitro-modules: ^0.9.2
     release-it: ^15.0.0
     turbo: ^1.10.7
     typescript: ^5.2.2
@@ -10511,8 +10512,19 @@ __metadata:
     babel-plugin-module-resolver: ^5.0.0
     react: 18.2.0
     react-native: 0.74.2
+    react-native-nitro-modules: ^0.9.2
   languageName: unknown
   linkType: soft
+
+"react-native-nitro-modules@npm:^0.9.2":
+  version: 0.9.2
+  resolution: "react-native-nitro-modules@npm:0.9.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 48d6fe0d19e5229bc6164bf26e59ac2d368e842f63bfcc60e6bf506db7d8a58a95a112589b24700957fb9c377ca70df0457d26edcf366b1b620702ef605cf639
+  languageName: node
+  linkType: hard
 
 "react-native@npm:0.74.2":
   version: 0.74.2
