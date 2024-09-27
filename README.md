@@ -5,14 +5,14 @@ react native polyfill for crypto getRandomValues
 ## Installation
 
 ```sh
-npm install @kore-koi/react-native-get-random-values
+npm install @korekoi/react-native-get-random-values
 ```
 
 ## Usage
 
 
 ```js
-import '@kore-koi/react-native-get-random-values';
+import '@korekoi/react-native-get-random-values';
 
 // ...
 

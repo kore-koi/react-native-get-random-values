@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "@kore-koi/react-native-get-random-values": ["./src/index"]
+      "@korekoi/react-native-get-random-values": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
