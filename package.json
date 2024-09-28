@@ -43,14 +43,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/korekoi/react-native-get-random-values.git"
+    "url": "git+https://github.com/kore-koi/react-native-get-random-values.git"
   },
-  "author": "korekoi <mattia2002.ferrari@gmail.com> (https://github.com/korekoi/react-native-get-random-values)",
+  "author": "korekoi <mattia2002.ferrari@gmail.com> (https://github.com/kore-koi/react-native-get-random-values)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/korekoi/react-native-get-random-values/issues"
+    "url": "https://github.com/kore-koi/react-native-get-random-values/issues"
   },
-  "homepage": "https://github.com/korekoi/react-native-get-random-values#readme",
+  "homepage": "https://github.com/kore-koi/react-native-get-random-values#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
