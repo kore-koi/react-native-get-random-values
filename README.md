@@ -1,33 +1,44 @@
-# react-native-get-random-values
+<a>
+  <picture>
+    <img alt="@kore-koi/react-native-get-random-values" src=".github/assets/banner.svg"/>
+  </picture>
+</a>
 
-react native polyfill for crypto getRandomValues
+### Features
 
-## Installation
+- 🫳 Drop-in replacement for `crypto.getRandomValues`
+- ⚡ Uses JSI for faster operations  between Native and JS
+- 🔒 Native C++ randomization using [libsodium](https://github.com/jedisct1/libsodium)
+- ✅ Supports both old and new architecture
+
+### Installation
 
 ```sh
 npm install @korekoi/react-native-get-random-values
 ```
 
-## Usage
+![NPM Version](https://img.shields.io/npm/v/@korekoi/react-native-get-random-values?color=blue&style=flat-square)
 
+### Usage
 
-```js
-import '@korekoi/react-native-get-random-values';
-
-// ...
+```typescript
+import "@korekoi/react-native-get-random-values"
 
 const array = new Uint8Array(32);
 global.crypto.getRandomValues(array);
 ```
 
-## Contributing
 
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+> See the [example app](./example/)
 
-## License
+### How does it compare to other alternatives?
 
-MIT
+The most downloaded and probably the only available library to polyfill this method (until now) has been [LinusU/react-native-get-random-values](https://github.com/LinusU/react-native-get-random-values), but our solution has a couple improvements:
 
----
+- **JSI**, Native and JavaScript communicate through a memory reference and not by serializing data in Base64 back-and-forth, which results in faster operations
+- Randomization is made using [libsodium](https://github.com/jedisct1/libsodium) for both iOS and Android
+  - instead of [Java SecureRandom](https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html) for Android and [Objective-C SecRandomCopyBytes](https://developer.apple.com/documentation/security/secrandomcopybytes(_:_:_:)?language=objc) or [Swift SecRandomCopyBytes](https://developer.apple.com/documentation/security/secrandomcopybytes(_:_:_:)) for iOS
 
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+### Benchmark
+
+_TODO_
