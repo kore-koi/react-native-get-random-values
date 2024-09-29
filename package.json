@@ -1,6 +1,6 @@
 {
   "name": "@korekoi/react-native-get-random-values",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "react native polyfill for crypto getRandomValues",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
