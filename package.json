@@ -67,19 +67,16 @@
     "react": "18.2.0",
     "react-native": "0.74.2",
     "react-native-builder-bob": "^0.20.0",
-    "release-it": "^15.0.0",
     "turbo": "^1.10.7",
     "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "react-native-nitro-modules": "^0.9.2"
   },
   "resolutions": {
     "@types/react": "^18.2.44"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-nitro-modules": "*"
   },
   "workspaces": [
     "example"
@@ -91,23 +88,6 @@
       "<rootDir>/example/node_modules",
       "<rootDir>/lib/"
     ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular"
-      }
-    }
   },
   "eslintIgnore": [
     "node_modules/",

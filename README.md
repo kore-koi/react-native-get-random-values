@@ -8,13 +8,12 @@
 
 - 🫳 Drop-in replacement for `crypto.getRandomValues`
 - ⚡ Uses JSI for faster operations  between Native and JS
-- 🔒 Native C++ randomization using [libsodium](https://github.com/jedisct1/libsodium)
-- ✅ Supports both old and new architecture
+- 🔒 Native C++ secure randomization using [libsodium](https://github.com/jedisct1/libsodium)
 
 ### Installation
 
 ```sh
-npm install @korekoi/react-native-get-random-values
+npm install react-native-nitro-modules @korekoi/react-native-get-random-values
 ```
 
 ![NPM Version](https://img.shields.io/npm/v/@korekoi/react-native-get-random-values?color=blue&style=flat-square)
