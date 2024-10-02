@@ -19,6 +19,8 @@ export interface Sodium extends HybridObject {
   getRandomValues(buffer: ArrayBuffer): void;
 }
 
+const sodium = NitroModules.createHybridObject<Sodium>("Sodium")
+
 // port correct types as the browser/node implementation https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues#exceptions
 class TypeMismatchError extends Error {}
 class QuotaExceededError extends Error {}
@@ -29,8 +31,6 @@ const getRandomValues = <T extends CompatibleArray>(array: T): T => {
       "ArrayBuffer length exceeds maximum length of 65536 bytes."
     )
   }
-
-  const sodium = NitroModules.createHybridObject<Sodium>("Sodium")
 
   sodium.getRandomValues(array.buffer)
 
