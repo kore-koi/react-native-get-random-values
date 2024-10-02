@@ -41,3 +41,8 @@ The most downloaded and probably the only available library to polyfill this met
 ### Benchmark
 
 _TODO_
+
+
+### Notes
+
+- [Get started with the development of the module](./docs/getting-started.md)
