@@ -1,4 +1,4 @@
-name: CI
+name: CI, Lint and Typecheck
 on:
   push:
     branches:

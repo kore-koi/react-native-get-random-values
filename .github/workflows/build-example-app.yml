@@ -1,0 +1,105 @@
+name: Build Example App
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 18
+        uses: actions/setup-java@v4
+        with:
+          java-version: 18
+          distribution: temurin
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          yarn install
+          cd example
+          yarn install
+
+      - name: Clean generated builds
+        run: |
+          cd example
+          rm -rf android/app/build/generated/
+
+      - name: Gradle build APK
+        run: |
+          cd example
+          cd android
+          chmod +x gradlew
+          ./gradlew app:assembleRelease
+
+      - name: Release APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: example/android/app/build/outputs/apk/release/*.apk
+
+  ipa:
+    runs-on: macos-14
+    name: Build iOS IPA
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: |
+          yarn install
+          cd example
+          yarn install
+
+      - name: pod Install
+        run: |
+          cd example
+          cd ios
+          rm Podfile.lock
+          pod install --repo-update
+
+      - name: Create Example Workspace
+        run: |
+          cd example
+          cd ios
+          cp -r GetRandomValuesExample.xcworkspace example.xcworkspace
+
+      - name: Xcode build
+        run: |
+          cd example
+          cd ios
+          xcodebuild -scheme GetRandomValuesExample -workspace example.xcworkspace -configuration Release clean archive -archivePath "build/GetRandomValuesExample.xcarchive" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+
+      - name: Archive to IPA
+        run: |
+          cd example
+          cd ios
+          mkdir build/Payload
+          mv build/GetRandomValuesExample.xcarchive/Products/Applications/GetRandomValuesExample.app build/Payload/GetRandomValuesExample.app
+          cd build
+          zip -r GetRandomValuesExample.ipa Payload/
+
+      - name: Release IPA
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: example/ios/build/GetRandomValuesExample.ipa
