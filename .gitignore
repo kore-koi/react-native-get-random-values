@@ -78,3 +78,6 @@ android/keystores/debug.keystore
 lib/
 
 *.tgz
+
+# Extras
+example/ios/.xcode.env.local
