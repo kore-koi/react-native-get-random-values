@@ -1185,7 +1185,7 @@ PODS:
     - React-logger (= 0.74.2)
     - React-perflogger (= 0.74.2)
     - React-utils (= 0.74.2)
-  - RNSodium (0.1.0):
+  - RNSodium (0.1.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1444,9 +1444,9 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 56b642bf605ba5afa500d35790928fc1d51565ad
   React-utils: 4476b7fcbbd95cfd002f3e778616155241d86e31
   ReactCommon: ecad995f26e0d1e24061f60f4e5d74782f003f12
-  RNSodium: c24e4858c15ac237385164906944b91fd71e595e
+  RNSodium: acfacf066779ada4bd2c1e346ab9f2ad8a58fbd0
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: 2f71ecf38d934aecb366e686278102a51679c308
+  Yoga: ae3c32c514802d30f687a04a6a35b348506d411f
 
 PODFILE CHECKSUM: 2b476e664f3e7c6b87013748402bfab7c78276e5
 
