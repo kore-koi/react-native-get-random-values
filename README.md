@@ -4,6 +4,10 @@
   </picture>
 </a>
 
+---
+
+[![NPM Version](https://img.shields.io/npm/v/@korekoi/react-native-get-random-values?color=blue&style=flat-square)](https://www.npmjs.com/package/@korekoi/react-native-get-random-values)
+
 ### Features
 
 - 🫳 Drop-in replacement for `crypto.getRandomValues`
@@ -13,10 +17,16 @@
 ### Installation
 
 ```sh
-npm install react-native-nitro-modules @korekoi/react-native-get-random-values
+npm install @korekoi/react-native-get-random-values
 ```
 
-![NPM Version](https://img.shields.io/npm/v/@korekoi/react-native-get-random-values?color=blue&style=flat-square)
+#### Dependencies
+
+This library needs these dependencies to be installed in your project before you can use it:
+
+```sh
+npm install react-native-nitro-modules
+```
 
 ### Usage
 
