@@ -1,15 +1,41 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import '@korekoi/react-native-get-random-values';
+import { getRandomValues } from '@korekoi/react-native-get-random-values';
+import { getRandomValues as b64GetRandomValues } from "react-native-get-random-values"
 
 
 export default function App() {
   React.useEffect(() => {
-    const a = new Uint8Array(32);
+    console.log("====================LIBSODIUM + NITRO=======================")
+    const loops = 10000
+    let sum = 0
+    for (let i = 0; i < loops; i++) {
+      const start = performance.now()
+      const a = new Uint32Array(16384)
+      getRandomValues(a)
 
-    console.log("TEST", global.crypto.getRandomValues(a))
+      const end = performance.now()
+      sum += end - start
+    }
+    console.log(`Average time for ${loops} loops: ${sum / loops}ms`)
   }, [])
+
+  React.useEffect(() => {
+    console.log("====================SERIALIZATION WITH SWIFT AND JAVA=======================")
+    const loops = 1000
+    let sum = 0
+    for (let i = 0; i < loops; i++) {
+      const start = performance.now()
+      const a = new Uint32Array(16384)
+      b64GetRandomValues(a)
+
+      const end = performance.now()
+      sum += end - start
+    }
+    console.log(`Average time for ${loops} loops: ${sum / loops}ms`)
+  }, [])
+
   return (
     <View style={styles.container}>
       <Text>
