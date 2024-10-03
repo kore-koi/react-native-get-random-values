@@ -11,9 +11,20 @@
     "build:ios": "cd ios && xcodebuild -workspace GetRandomValuesExample.xcworkspace -scheme GetRandomValuesExample -configuration Debug -sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO"
   },
   "dependencies": {
+    "@react-navigation/material-bottom-tabs": "^6.2.29",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.11.0",
+    "@types/react-native-vector-icons": "^6.4.18",
+    "bignumber.js": "^9.1.2",
+    "immer": "^10.1.1",
     "react": "18.2.0",
     "react-native": "0.74.2",
-    "react-native-nitro-modules": "^0.9.2"
+    "react-native-nitro-modules": "^0.9.2",
+    "react-native-paper": "^5.12.5",
+    "react-native-safe-area-context": "^4.11.0",
+    "react-native-screens": "3.32.0",
+    "react-native-vector-icons": "^10.2.0",
+    "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
