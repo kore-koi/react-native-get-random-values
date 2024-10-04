@@ -12,7 +12,7 @@ export const Percentage: FunctionComponent<Props> = ({ jsiTime, b64Time }) => {
       return undefined
     }
 
-    return ((b64Time - jsiTime) / b64Time) * 100
+    return b64Time / jsiTime
   }, [jsiTime, b64Time])
 
   return (
@@ -21,7 +21,7 @@ export const Percentage: FunctionComponent<Props> = ({ jsiTime, b64Time }) => {
         color: fasterPercentage > 0 ? 'green' : 'red',
       }}
     >
-      {fasterPercentage ? `${fasterPercentage.toFixed(2)}%` : 'N/A'}
+      {fasterPercentage ? `x${fasterPercentage.toFixed(2)}` : 'N/A'}
     </Text>
   )
 }

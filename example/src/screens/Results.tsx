@@ -35,7 +35,7 @@ export const Results: FunctionComponent = () => {
             <DataTable.Title>Array size</DataTable.Title>
             <DataTable.Title numeric>JSI Time</DataTable.Title>
             <DataTable.Title numeric>B64 Time</DataTable.Title>
-            <DataTable.Title numeric>%</DataTable.Title>
+            <DataTable.Title numeric>Times faster</DataTable.Title>
           </DataTable.Header>
 
           <DataTable.Row>
