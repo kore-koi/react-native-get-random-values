@@ -11,6 +11,9 @@ type BenchmarksStore  = {
   mediumArrayJsiMeasurements: number | undefined
   mediumArrayB64Measurements: number | undefined
 
+  largeArrayJsiMeasurements: number | undefined
+  largeArrayB64Measurements: number | undefined
+
   maxArrayJsiMeasurements: number | undefined
   maxArrayB64Measurements: number | undefined
 
@@ -19,6 +22,9 @@ type BenchmarksStore  = {
 
   setMediumArrayJsiMeasurements: (mediumArrayJsiMeasurements: number) => void
   setMediumArrayB64Measurements: (mediumArrayB64Measurements: number) => void
+
+  setLargeArrayJsiMeasurements: (largeArrayJsiMeasurements: number) => void
+  setLargeArrayB64Measurements: (largeArrayB64Measurements: number) => void
 
   setMaxArrayJsiMeasurements: (maxArrayJsiMeasurements: number) => void
   setMaxArrayB64Measurements: (maxArrayB64Measurements: number) => void
@@ -33,6 +39,9 @@ export const useBenchmark = create<BenchmarksStore>((set) => ({
 
     mediumArrayJsiMeasurements: undefined,
     mediumArrayB64Measurements: undefined,
+
+    largeArrayB64Measurements: undefined,
+    largeArrayJsiMeasurements: undefined,
 
     maxArrayJsiMeasurements: undefined,
     maxArrayB64Measurements: undefined,
@@ -51,6 +60,14 @@ export const useBenchmark = create<BenchmarksStore>((set) => ({
 
     setMediumArrayB64Measurements: (mediumArrayB64Measurements: number) => {
       set({ mediumArrayB64Measurements })
+    },
+
+    setLargeArrayJsiMeasurements: (largeArrayJsiMeasurements: number) => {
+      set({ largeArrayJsiMeasurements })
+    },
+
+    setLargeArrayB64Measurements: (largeArrayB64Measurements: number) => {
+      set({ largeArrayB64Measurements })
     },
 
     setMaxArrayJsiMeasurements: (maxArrayJsiMeasurements: number) => {

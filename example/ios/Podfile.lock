@@ -1298,7 +1298,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNSodium (0.2.0):
+  - RNSodium (0.2.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1593,10 +1593,10 @@ SPEC CHECKSUMS:
   React-utils: 4476b7fcbbd95cfd002f3e778616155241d86e31
   ReactCommon: ecad995f26e0d1e24061f60f4e5d74782f003f12
   RNScreens: d3d50aa84db4541eee00fbb1f32151030f56c510
-  RNSodium: 381683159bdd22fc7bc65b6e4e6a8950cbb27bc1
+  RNSodium: f047dde7855aa3314c68045d90469fb2b297b555
   RNVectorIcons: 46a635b764a63e9a4ffedae054bca3847e0c8934
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
-  Yoga: ae3c32c514802d30f687a04a6a35b348506d411f
+  Yoga: 2f71ecf38d934aecb366e686278102a51679c308
 
 PODFILE CHECKSUM: 2b476e664f3e7c6b87013748402bfab7c78276e5
 

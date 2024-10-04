@@ -6,7 +6,7 @@ import { formatDuration } from '../utils/time'
 
 type Props = {
   title: string
-  benchmarkFn: () => void
+  benchmarkFn: () => number
   setResult: (result: number) => void
   result: number | undefined
 }
@@ -34,11 +34,8 @@ export const Benchmark: FunctionComponent<Props> = ({
     // workaround to show the loading state
     await sleep(100)
 
-    const start = performance.now()
-    benchmarkFn()
-    const end = performance.now()
-
-    setResult(end - start)
+    const res = benchmarkFn()
+    setResult(res)
 
     setIsLoading(false)
     setCurrentLoading(false)
