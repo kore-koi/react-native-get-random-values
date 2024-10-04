@@ -50,7 +50,13 @@ The most downloaded and probably the only available library to polyfill this met
 
 ### Benchmark
 
-_TODO_
+Percentage represents how much faster JSI is compared to B64
+
+| iOS                                                                          | iOS Simulator                                                               | Android                    |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------- |
+| <img alt="iPhone 13 Benchmark" src=".github/assets/iphone13_benchmark.png"/> | <img alt="Simulator Benchmark" src=".github/assets/sim_benchmark.png"/>     | Feel free to open an issue |
+| iPhone 13 on iOS 17                                                          | iPhone 16 Pro Simulator, iOS 18, running on an MacBook Air M1 2020 16GB ram |                            |
+| 10k loops at 65535 bytes with Base 64 crashed the app                        |                                                                             |                            |
 
 
 ### Notes
