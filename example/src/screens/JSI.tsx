@@ -38,7 +38,7 @@ export const JSI: FunctionComponent = () => {
           benchmarkFn={() => measure(largeSize)}
           setResult={setLargeArrayJsiMeasurements}
           result={largeArrayJsiMeasurements}
-          title={`10k loops on Large Array JSI ${mediumSize} bytes`}
+          title={`10k loops on Large Array JSI ${largeSize} bytes`}
         />
 
         <Benchmark

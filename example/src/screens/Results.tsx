@@ -1,7 +1,7 @@
 import React, { type FunctionComponent } from "react";
 import { View, ScrollView, } from "react-native"
 import useBenchmarks from "../stores/Benchmarks";
-import { Card, DataTable, Text, useTheme } from 'react-native-paper';
+import { Card, DataTable, useTheme } from 'react-native-paper';
 import { largeSize, maxSize, mediumSize, smallSize } from "../utils/benchmarks";
 import { styles } from "../styles/common";
 import { resultString } from "../utils/time";

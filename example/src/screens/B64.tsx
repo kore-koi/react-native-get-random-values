@@ -37,7 +37,7 @@ export const B64: FunctionComponent = () => {
           benchmarkFn={() => measureB64(largeSize)}
           setResult={setLargeArrayB64Measurements}
           result={largeArrayB64Measurements}
-          title={`10k loops on Large Array B64 ${mediumSize} bytes`}
+          title={`10k loops on Large Array B64 ${largeSize} bytes`}
         />
 
         <Benchmark
